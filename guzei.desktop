@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Guzei
+Comment=Picture of the day as your wallpaper
+Exec=/home/goovi/.local/bin/guzei
+Terminal=false
+Categories=GNOME;GTK;

@@ -1,0 +1,14 @@
+CC=gcc
+
+CFLAGS="-rdynamic"
+
+PKG_CONFIG_FLAGS=`pkg-config --cflags gtk+-3.0`
+PKG_CONFIG_LIBS=`pkg-config --libs gtk+-3.0`
+
+EXE="a.out"
+
+all:
+	${CC} ${CFLAGS} ${PKG_CONFIG_FLAGS} main.c -o ${EXE} ${PKG_CONFIG_LIBS}
+
+run: all
+	./${EXE}
