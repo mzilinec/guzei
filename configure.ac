@@ -1,5 +1,5 @@
 AC_INIT([Guzei], 1.0)
-AM_INIT_AUTOMAKE([-Wall -Werror foreign subdir-objects])
+AM_INIT_AUTOMAKE([-Wall -Werror foreign subdir-objects -Wno-portability])
 PKG_CHECK_MODULES(GTK, gtk+-3.0 >= 3.0)
 GLIB_GSETTINGS
 AC_PROG_CC
