@@ -32,10 +32,6 @@ class ImageProvider {
       function (_httpSession, message) {
         if (message.status_code !== 200)
           return;
-        // if (!message.response_body.complete()) {
-          // let foo = null;
-          // foo.a();
-        // }
         this._do_save(message.response_body, path);
       }
     ));

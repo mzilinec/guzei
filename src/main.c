@@ -1,8 +1,8 @@
 #include <gtk/gtk.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include "glade-resources.h"
-#include "glade-resources.c"
+//#include "glade-resources.h"
+//#include "glade-resources.c"
 
 
 char *labels [] = {

@@ -3,7 +3,7 @@ Version=1.0
 Type=Application
 Name=Guzei
 Comment=Picture of the day as your wallpaper
-#Exec=/home/gooovi/.local/bin/guzei
 Exec=[EXEC_PATH]
+# Executable path will be generated during build
 Terminal=false
 Categories=GNOME;GTK;

@@ -14,9 +14,10 @@ const Providers = Me.imports.providers;
 let text, button;
 
 function getSettings(schema) {
-    if (Gio.Settings.list_schemas().indexOf(schema) == -1)
-      return null;
-        // TODO throw _("Schema \"%s\" not found.").format(schema);
+    if (Gio.Settings.list_schemas().indexOf(schema) == -1) {
+        global.log("Schema not found!");
+        return null;
+    }
     return new Gio.Settings({ schema: schema });
 }
 
@@ -28,39 +29,27 @@ function open_app() {
 let settings;
 
 function init() {
-    // button = new St.Bin({ style_class: 'panel-button',
-    //                       reactive: true,
-    //                       can_focus: true,
-    //                       x_fill: true,
-    //                       y_fill: false,
-    //                       track_hover: true });
-    // let icon = new St.Icon({ icon_name: 'system-run-symbolic',
-    //                          style_class: 'system-status-icon' });
 
-    // button.set_child(icon);
-    // button.connect('button-press-event', open_app);
-
-    settings = getSettings("me.zilinec.guzei");
-    if (settings != null) {
-      settings.connect('changed', Lang.bind(this,this.update));
-    }
-
-    let interval = 60*60*2; // refresh every 2 hours
-    update();
-    Mainloop.timeout_add_seconds(interval, update);
-    // TODO use xml desc. like file:///usr/share/backgrounds/f27/default/f27.xml
 }
-// 
-// function enable() {
-//     Main.panel._rightBox.insert_child_at_index(button, 0);
-// }
-//
-// function disable() {
-//     Main.panel._rightBox.remove_child(button);
-// }
+
+ function enable() {
+     settings = getSettings("me.zilinec.guzei");
+     if (settings != null) {
+         settings.connect('changed', Lang.bind(this,this.update));
+     }
+
+     let interval = 60*60*2; // refresh every 2 hours
+     update();
+     Mainloop.timeout_add_seconds(interval, update);
+     // TODO use xml desc. like file:///usr/share/backgrounds/f27/default/f27.xml
+
+ }
+
+ function disable() {
+
+ }
 
 function get_default_provider_name() {
-  // let settings = getSettings("me.zilinec.guzei");
   let provider_name = null;
   enabled = settings.get_boolean("enabled");
   if (!enabled) {
@@ -100,7 +89,7 @@ function update() {
     return true; // still try again later
   }
 
-  let base_dir = GLib.get_user_data_dir() + "/gmuzei/" + provider.get_name();
+  let base_dir = GLib.get_user_data_dir() + "/guzei/" + provider.get_name();
   ensure_dir(base_dir);
 
   provider.update(base_dir, function () {
@@ -113,24 +102,6 @@ function update() {
   });
   return true;
 }
-
-// function showMessage(text) {
-//   let label = new St.Label({ style_class: 'helloworld-label', text: text });
-//   Main.uiGroup.add_actor(label);
-//   label.opacity = 255;
-//   let monitor = Main.layoutManager.primaryMonitor;
-//   label.set_position(monitor.x + Math.floor(monitor.width / 2 - text.width / 2),
-//                 monitor.y + Math.floor(monitor.height / 2 - text.height / 2));
-//   Tweener.addTween(label, {
-//                  opacity: 0,
-//                  time: 2,
-//                  transition: 'easeOutQuad',
-//                  onComplete: function () {
-//                    Main.uiGroup.remove_actor(label);
-//                  }}
-//   );
-// }
-
 
 function ensure_dir(dir) {
   let file = Gio.file_new_for_path(dir);
